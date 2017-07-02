@@ -1,1 +1,3 @@
 ./.idea/*
+./landing/migrations/*
+*.pyc
