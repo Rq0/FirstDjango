@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 
@@ -9,5 +10,5 @@ class Subscriber(models.Model):
         return "%s %s" % (self.name, self.email)
 
     class Meta:
-        verbose_name = 'Profile'
-        verbose_name_plural = 'Profiles'
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
