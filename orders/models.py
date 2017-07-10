@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
+from __future__ import unicode_literals
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -13,12 +15,12 @@ class Status(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    def __str__(self):
-        return "Статус %s" % self.name
+    def __unicode__(self):
+        return u"Статус %s" % self.name
 
     class Meta:
-        verbose_name = 'Статус заказа'
-        verbose_name_plural = 'Статусы заказа'
+        verbose_name = u'Статус заказа'
+        verbose_name_plural = u'Статусы заказа'
 
 
 class Order(models.Model):
@@ -34,12 +36,12 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    def __str__(self):
-        return "Заказ %s %s" % (self.id, self.status.name)
+    def __unicode__(self):
+        return u"Заказ %s %s" % (self.id, self.status.name)
 
     class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
+        verbose_name = u'Заказ'
+        verbose_name_plural = u'Заказы'
 
     def save(self, *args, **kwargs):
         super(Order, self).save(*args, **kwargs)
@@ -55,12 +57,12 @@ class ProductInOrder(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    def __str__(self):
-        return "%s" % self.product.name
+    def __unicode__(self):
+        return u"%s" % self.product.name
 
     class Meta:
-        verbose_name = 'Товар в заказе'
-        verbose_name_plural = 'Товары в заказе'
+        verbose_name = u'Товар в заказе'
+        verbose_name_plural = u'Товары в заказе'
 
     def save(self, *args, **kwargs):
         price_per_item = self.product.price
@@ -100,11 +102,11 @@ class ProductInBasket(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def __str__(self):
-        return "%s" % self.product.name
+        return u"%s" % self.product.name
 
     class Meta:
-        verbose_name = 'Товар в корзине'
-        verbose_name_plural = 'Товары в корзине'
+        verbose_name = u'Товар в корзине'
+        verbose_name_plural = u'Товары в корзине'
 
     def save(self, *args, **kwargs):
         price_per_item = self.product.price

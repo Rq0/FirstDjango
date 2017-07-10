@@ -10,8 +10,7 @@ html, body {
     margin-top: 27px;
 }
 .general-container {
-    margin: 2px;
-    padding-top: 22%;
+    padding-top: 21%;
     background: url('images/legal_bg.jpg') no-repeat center top;
     -moz-background-size: 100%; /* Firefox 3.6+ */
     -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */

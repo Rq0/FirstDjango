@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
+
 from django.db import models
 
 
@@ -6,8 +7,8 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=64, blank=True, null=True, default=None)
     is_active = models.BooleanField(default=True)
 
-    def __str__(self):
-        return "%s" % self.name
+    def __unicode__(self):
+        return u"%s" % self.name
 
     class Meta:
         verbose_name = 'Категория товара'
@@ -25,8 +26,8 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    def __str__(self):
-        return "%s, %s" % (self.price, self.name)
+    def __unicode__(self):
+        return u"%s, %s" % (self.price, self.name)
 
     class Meta:
         verbose_name = 'Товар'

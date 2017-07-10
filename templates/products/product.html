@@ -8,7 +8,7 @@
         <div class="col-lg-6">
             {% for image_item in product.productimage_set.all %}
             <div class="product-image-item">
-                <img src="{{ image_item.image.url }}" class="img-responsive">
+                <img src=" {% static '' %}{{ image_item.image.url }}" class="img-responsive">
             </div>
             {% endfor %}
         </div>
