@@ -1,0 +1,37 @@
+html, body {
+    max-height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.top-container {
+    padding-bottom: 22%;
+}
+.general-container form{
+    margin-top: 27px;
+}
+.general-container {
+    margin: 2px;
+    padding-top: 22%;
+    background: url('images/legal_bg.jpg') no-repeat center top;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: cover;
+    color: #120F2E;
+    font-weight: 100!important;
+    line-height: 30px;
+}
+.btn-submit{
+    background-color: #2b9bff;
+
+}
+.btn-submit:hover{
+    background-color: #79d0e9;
+}
+.title {
+    color: #4cb9ea;
+    font-weight: 100;
+    line-height: 50px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
