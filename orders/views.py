@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.views.generic import CreateView
 
-from orders.forms import CheckoutContactForm
+from orders.forms import CheckoutContactForm, ProductInBasketForm
 from orders.models import ProductInBasket, Order, ProductInOrder
 
 
@@ -18,8 +19,11 @@ def basket_adding(request):
     if is_delete == 'true':
         ProductInBasket.objects.filter(id=product_id).update(is_active=False)
     else:
-        new_product, created = ProductInBasket.objects.get_or_create(session_key=session_key, product_id=product_id,
-                                                                     is_active=True, defaults={"nmb": nmb})
+        new_product, created = ProductInBasket.objects.\
+            get_or_create(session_key=session_key,
+                          product_id=product_id,
+                          is_active=True,
+                          defaults={"nmb": nmb})
         if not created:
             print ("not created")
             new_product.nmb += int(nmb)
@@ -41,6 +45,44 @@ def basket_adding(request):
         return_dict["products"].append(product_dict)
 
     return JsonResponse(return_dict)
+
+
+class BasketAddExample(CreateView):
+    model = ProductInBasket
+    form_class = ProductInBasketForm
+    template_name = 'products/product.html'
+
+    def get(self, request, *args, **kwargs):
+        raise NotImplementedError
+
+    def form_valid(self, form):
+        try:
+            self.object = self.model.objects.get(
+                product_id=self.kwargs.get('product_id'),
+                session_key=self.request.session.session_key,
+                is_active=True,
+                order__isnull=True,
+            )
+        except self.model.DoesNotExist:
+            self.object = self.model(**form.cleaned_data)
+        else:
+            self.object.nmb = self.object.nmb + form.cleaned_data.get("nmb", 0)
+        self.object.save()
+
+        qs = ProductInBasket.objects.\
+            filter(session_key=self.request.session.session_key,
+                   is_active=True, order__isnull=True)
+        kek = [{"id": item.id,
+                "name": item.product.name,
+                "price_per_item": item.price_per_item,
+                "nmb": item.nmb} for item in qs]
+        return JsonResponse({
+            "products": kek,
+            "products_total_nmb": form.cleaned_data.get("nmb", 0)
+        })
+
+    def form_invalid(self, form):
+        return JsonResponse({"fail": form.errors})
 
 
 def checkout(request):
