@@ -20,6 +20,8 @@ from . import views
 urlpatterns = [
 
     url(r'^basket_adding/$', views.basket_adding, name='basket_adding'),
+    url(r'^basket_adding2/(?P<product_id>\d+)/$', views.BasketAddExample.as_view(),
+        name='basket_adding2'),
     url(r'^checkout/$', views.checkout, name='checkout'),
 
 ]
