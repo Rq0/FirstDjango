@@ -54,7 +54,7 @@ def checkout(request):
     if request.POST:
         print(request.POST)
         if form.is_valid():
-            print("yes")
+            print("form valid")
             data = request.POST
             name = data.get("name", "3423453")
             phone = data["phone"]
@@ -79,5 +79,5 @@ def checkout(request):
 
             return HttpResponseRedirect(request.META['HTTP_REFERER'])
         else:
-            print("no")
+            print("form not valid")
     return render(request, 'orders/checkout.html', locals())

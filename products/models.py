@@ -11,8 +11,8 @@ class ProductCategory(models.Model):
         return u"%s" % self.name
 
     class Meta:
-        verbose_name = 'Категория товара'
-        verbose_name_plural = 'Категория товаров'
+        verbose_name = u'Категория товара'
+        verbose_name_plural = u'Категория товаров'
 
 
 class Product(models.Model):
@@ -30,8 +30,8 @@ class Product(models.Model):
         return u"%s, %s" % (self.price, self.name)
 
     class Meta:
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
+        verbose_name = u'Товар'
+        verbose_name_plural = u'Товары'
 
 
 class ProductImage(models.Model):
@@ -42,9 +42,9 @@ class ProductImage(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    def __str__(self):
-        return "%s" % self.id
+    def __unicode__(self):
+        return u"%s" % self.id
 
     class Meta:
-        verbose_name = 'Фотография'
-        verbose_name_plural = 'Фотографии'
+        verbose_name = u'Фотография'
+        verbose_name_plural = u'Фотографии'
