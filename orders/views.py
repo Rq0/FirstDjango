@@ -67,19 +67,19 @@ class BasketAddExample(CreateView):
             self.object = self.model(**form.cleaned_data)
         else:
             self.object.nmb = self.object.nmb + form.cleaned_data.get("nmb", 0)
-        self.object.save()
-
-        qs = ProductInBasket.objects. \
-            filter(session_key=self.request.session.session_key,
-                   is_active=True, order__isnull=True)
-        kek = [{"id": item.id,
-                "name": item.product.name,
-                "price_per_item": item.price_per_item,
-                "nmb": item.nmb} for item in qs]
-        return JsonResponse({
-            "products": kek,
-            "products_total_nmb": form.cleaned_data.get("nmb", 0)
-        })
+        if self.object.nmb > 0:
+            self.object.save()
+            qs = ProductInBasket.objects. \
+                filter(session_key=self.request.session.session_key,
+                       is_active=True, order__isnull=True)
+            kek = [{"id": item.id,
+                    "name": item.product.name,
+                    "price_per_item": item.price_per_item,
+                    "nmb": item.nmb} for item in qs]
+            return JsonResponse({
+                "products": kek,
+                "products_total_nmb": form.cleaned_data.get("nmb", 0)
+            })
 
     def form_invalid(self, form):
         return JsonResponse({"fail": form.errors})
