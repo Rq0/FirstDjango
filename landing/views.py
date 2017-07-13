@@ -1,7 +1,8 @@
+import datetime
 from django.shortcuts import render
 
+from products.models import ProductImage
 from .forms import SubscribersForm
-from products.models import Product, ProductImage
 
 
 def landing(request):
@@ -19,4 +20,6 @@ def home(request):
     products_images = ProductImage.objects.filter(is_active=True, is_main=True)
     products_images_phones = products_images.filter(product__category__id=1)
     products_images_laptops = products_images.filter(product__category__id=2)
+    date = datetime.datetime.now().month
+    products_images_new = products_images.filter(product__created__month=date)
     return render(request, 'landing/home.html', locals())
