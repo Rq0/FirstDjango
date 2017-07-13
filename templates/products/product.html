@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<div class="container">
+<div class="container" xmlns:padding-top="http://www.w3.org/1999/xhtml">
     <div class="row">
         <div class="col-lg-6">
             {% for image_item in product.productimage_set.all %}
@@ -52,7 +52,9 @@
                     <div role="tabpanel" class="tab-pane" id="settings">...</div>
                 </div>
             </div>
+            <ul class="nav nav-tabs" role="tablist" style="margin: 10px"> </ul>
             <div>
+                <label>Количество товара</label>
                 <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding2' product.id %}">
                     {% csrf_token %}
                     {% for field in form %}

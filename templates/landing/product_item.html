@@ -6,7 +6,6 @@
             <span>{{ product_image.product.discount }}%</span>
         </div>
         {% endif %}
-
         <h4>{{ product_image.product.name }}</h4>
         <p>
             {{ product_image.product.description|truncatechars_html:40 }}
@@ -18,9 +17,11 @@
             <img src="{% static '/media/'%}{{ product_image.image }}" class="img-responsive">
         </div>
         <div class="add-to-card-btn">
-            <button class="btn btn-success">
-                Добавить в корзину
-            </button>
+            <a class="" href="/product/{{product_image.product.id}}">
+                <button class="btn btn-success">
+                    Добавить в корзину
+                </button>
+            </a>
         </div>
     </div>
 </div>

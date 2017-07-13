@@ -19,7 +19,7 @@ def basket_adding(request):
     if is_delete == 'true':
         ProductInBasket.objects.filter(id=product_id).update(is_active=False)
     else:
-        new_product, created = ProductInBasket.objects.\
+        new_product, created = ProductInBasket.objects. \
             get_or_create(session_key=session_key,
                           product_id=product_id,
                           is_active=True,
@@ -69,7 +69,7 @@ class BasketAddExample(CreateView):
             self.object.nmb = self.object.nmb + form.cleaned_data.get("nmb", 0)
         self.object.save()
 
-        qs = ProductInBasket.objects.\
+        qs = ProductInBasket.objects. \
             filter(session_key=self.request.session.session_key,
                    is_active=True, order__isnull=True)
         kek = [{"id": item.id,
@@ -118,7 +118,6 @@ def checkout(request):
                                                   price_per_item=product_in_basket.price_per_item,
                                                   total_price=product_in_basket.total_price,
                                                   order=order)
-
             return HttpResponseRedirect(request.META['HTTP_REFERER'])
         else:
             print("form not valid")
