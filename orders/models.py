@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save
 
@@ -94,7 +95,7 @@ class ProductInBasket(models.Model):
     session_key = models.CharField(max_length=128, blank=True, null=True, default=None)
     order = models.ForeignKey(Order, blank=True, null=True, default=None)
     product = models.ForeignKey(Product, blank=True, null=True, default=None)
-    nmb = models.IntegerField(default=1)
+    nmb = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     price_per_item = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # price*nmb
     is_active = models.BooleanField(default=True)
