@@ -17,7 +17,7 @@
             <img src="{% static '/media/'%}{{ product_image.image }}" class="img-responsive">
         </div>
         <div class="add-to-card-btn">
-            <a class="" href="/product/{{product_image.product.id}}">
+            <a class="" href="{% url 'product' product_image.product.id %}">
                 <button class="btn btn-success">
                     Добавить в корзину
                 </button>

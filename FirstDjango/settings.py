@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from mysql.connector.django import client
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +41,7 @@ INSTALLED_APPS = [
     'orders',
     'products',
     'debug_toolbar',
-    'django.contrib.sitemaps'
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +81,12 @@ WSGI_APPLICATION = 'FirstDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'first_django',
+        'USER': 'root',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
