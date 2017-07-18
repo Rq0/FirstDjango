@@ -1,7 +1,9 @@
 import datetime
-from django.shortcuts import render
 
-from products.models import ProductImage
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+
+from products.models import ProductImage, Product
 from .forms import SubscribersForm
 
 
@@ -23,3 +25,25 @@ def home(request):
     date = datetime.datetime.now().month
     products_images_new = products_images.filter(product__created__month=date)
     return render(request, 'landing/home.html', locals())
+
+
+class Phone(ListView):
+    model = Product
+    context_object_name = 'phones'
+    template_name = 'landing/phone.html'
+
+    def get_queryset(self):
+        return super(Phone, self).get_queryset().filter(category_id=1)
+
+
+class Notebook(ListView):
+    model = Product
+    context_object_name = 'notebooks'
+    template_name = 'landing/notebook.html'
+
+    def get_queryset(self):
+        return super(Notebook, self).get_queryset().filter(category_id=2)
+
+
+class ProductDetail(DetailView):
+    model = Product

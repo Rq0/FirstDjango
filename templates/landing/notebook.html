@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content %}
+<h1>Список ноутбуков</h1>
+<table class="table">
+    <tr>
+        <th>
+            <b>Название</b>
+        </th>
+        <th>
+            <b>Короткое описание</b>
+        </th>
+        <th>
+            <b>Цена</b>
+        </th>
+        <th>
+            <b>Скидка</b>
+        </th>
+        <th>
+            <b>Дата создания</b>
+        </th>
+    </tr>
+    {% for object in notebooks %}
+    <tr>
+        <td><a href="/detail/{{ object.id }}">{{ object.name }}</a></td>
+        <td>{{ object.short_description }}</td>
+        <td>{{ object.price }}</td>
+        <td>{{ object.discount }}</td>
+        <td>{{ object.created }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}

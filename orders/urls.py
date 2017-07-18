@@ -24,4 +24,5 @@ urlpatterns = [
         name='basket_adding2'),
     url(r'^checkout/$', views.checkout, name='checkout'),
 
+
 ]

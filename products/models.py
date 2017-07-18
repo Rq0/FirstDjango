@@ -32,6 +32,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = u'Товар'
         verbose_name_plural = u'Товары'
+        ordering = ['name', 'short_description', 'price', 'discount', 'created']
 
 
 class ProductImage(models.Model):
