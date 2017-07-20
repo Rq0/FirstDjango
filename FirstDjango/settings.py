@@ -25,6 +25,8 @@ SECRET_KEY = 'it$yaws2!=ypy7=@w@pi5)=2z!#kxz=q-ip)(*y%&%7$xwnsbl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+INTERNAL_IPS = ['127.0.0.1', '::1']
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'landing',
     'orders',
     'products',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
