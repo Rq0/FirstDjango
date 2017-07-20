@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^phone/$', views.Phone.as_view(), name='phone'),
     url(r'^notebook/$', views.Notebook.as_view(), name='notebook'),
     url(r'^detail/(?P<pk>\d+)/$', views.ProductDetail.as_view(), name='detail'),
+    url(r'^orders/$', views.OrderList.as_view(), name='orders'),
 ]

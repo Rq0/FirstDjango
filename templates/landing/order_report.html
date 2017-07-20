@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content %}
+<h1>Начало отчета</h1>
+    <table class="table">
+    <tr>
+        <th>
+            <b>Заказ №</b>
+        </th>
+        <th>
+            <b>Название товара</b>
+        </th>
+        <th>
+            <b>Цена</b>
+        </th>
+        <th>
+            <b>Количество товаров</b>
+        </th>
+        <th>
+            <b>Общая цена</b>
+        </th>
+        <th>
+            <b>Дата заказа</b>
+        </th>
+    </tr>
+    {% for order in orders %}
+
+        {% for product_in_order in products_in_orders %}
+            {% ifequal product_in_order.order_id order.id %}
+                {% for product in products %}
+                    {% ifequal product.id product_in_order.product_id  %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ product.name}}</td>
+                            <td>{{ product.price}}</td>
+                            <td>{{ product_in_order.nmb}}</td>
+                            <td>{{ product_in_order.total_price}}</td>
+                            <td>{{ order.created}}</td>
+                        </tr>
+                    {% endifequal %}
+                {% endfor %}
+            {% endifequal %}
+        {% endfor %}
+    {% endfor %}
+    <tr>
+        <td colspan="5" align="right"><b>Количество заказов: </b></td>
+        <td align="center">{{orders.count}}</td>
+    </tr>
+    <tr>
+        <td colspan="5" align="right"><b>Средняя сумма заказа: </b></td>
+        <td align="center">{{avg_total_price}}</td>
+    </tr>
+    <tr>
+        <td colspan="5" align="right"><b>Среднее число товаров в заказе: </b></td>
+        <td align="center">{{avg_product_count}}</td>
+    </tr>
+    </table>
+{% endblock %}

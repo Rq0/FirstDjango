@@ -1,14 +1,14 @@
 import datetime
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
+from orders.models import Order, ProductInOrder
 from products.models import ProductImage, Product
 from .forms import SubscribersForm
 
 
 def landing(request):
-    name = 'rq0'
     form = SubscribersForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         print(request.POST)
@@ -47,3 +47,32 @@ class Notebook(ListView):
 
 class ProductDetail(DetailView):
     model = Product
+
+
+class OrderList(TemplateView):
+    template_name = "landing/order_report.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderList, self).get_context_data(**kwargs)
+        context['orders'] = Order.objects.all()
+        context['products_in_orders'] = ProductInOrder.objects.all()
+        context['products'] = Product.objects.all()
+
+        avg_total_price = 0
+        for order in ProductInOrder.objects.all():
+            avg_total_price += order.total_price
+        context['avg_total_price'] = avg_total_price / Order.objects.count()
+
+        avg_product_count = 0
+        for product in ProductInOrder.objects.all():
+            avg_product_count += product.nmb
+        context['avg_product_count'] = avg_product_count / ProductInOrder.objects.count()
+
+        return context
+
+# model = Order
+# context_object_name = 'orders'
+# template_name = 'landing/order_report.html'
+#
+# def get_queryset(self):
+#     return super(OrderList, self).get_queryset()
