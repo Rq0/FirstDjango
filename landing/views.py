@@ -54,19 +54,20 @@ class OrderList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderList, self).get_context_data(**kwargs)
-        context['orders'] = Order.objects.all()
-        context['products_in_orders'] = ProductInOrder.objects.all()
+        orders = Order.objects.all()
+        context['orders'] = orders
+        products_in_orders = ProductInOrder.objects.all()
+        context['products_in_orders'] = products_in_orders
         context['products'] = Product.objects.all()
 
-        avg_total_price = 0
-        for order in ProductInOrder.objects.all():
-            avg_total_price += order.total_price
-        context['avg_total_price'] = avg_total_price / Order.objects.count()
+        context['avg_total_price'] = sum([i.total_price for i in orders]) / len(orders)
 
-        avg_product_count = 0
-        for product in ProductInOrder.objects.all():
-            avg_product_count += product.nmb
-        context['avg_product_count'] = avg_product_count / ProductInOrder.objects.count()
+        total_price = []
+        for i in orders:
+            total_price.append(i.total_price)
+        sum(total_price)/len(orders)
+
+        context['avg_product_count'] = sum([i.nmb for i in products_in_orders]) / len(products_in_orders)
 
         return context
 

@@ -24,7 +24,6 @@
         </th>
     </tr>
     {% for order in orders %}
-
         {% for product_in_order in products_in_orders %}
             {% ifequal product_in_order.order_id order.id %}
                 {% for product in products %}
