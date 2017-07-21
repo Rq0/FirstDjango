@@ -19,4 +19,7 @@ from products import views
 
 urlpatterns = [
     url(r'^product/(?P<product_id>\w+)/$', views.product, name='product'),
+    url(r'^detail/(?P<pk>\d+)/$', views.ProductDetail.as_view(), name='detail'),
+    url(r'^phone/$', views.Phone.as_view(), name='phone'),
+    url(r'^notebook/$', views.Notebook.as_view(), name='notebook'),
 ]

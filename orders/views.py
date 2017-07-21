@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 
 from orders.forms import CheckoutContactForm, ProductInBasketForm
 from orders.models import ProductInBasket, Order, ProductInOrder
+from products.models import Product
 
 
 def basket_adding(request):
@@ -66,7 +67,7 @@ class BasketAddExample(CreateView):
         except self.model.DoesNotExist:
             self.object = self.model(**form.cleaned_data)
         else:
-            self.object.nmb = self.object.nmb + form.cleaned_data.get("nmb", 0)
+            self.object.nmb += form.cleaned_data.get("nmb", 0)
 
         self.object.save()
         qs = ProductInBasket.objects. \
@@ -122,3 +123,25 @@ def checkout(request):
         else:
             print("form not valid")
     return render(request, 'orders/checkout.html', locals())
+
+
+class OrderList(TemplateView):
+    template_name = "landing/order_report.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderList, self).get_context_data(**kwargs)
+        orders = Order.objects.all()
+        context['orders'] = orders
+        products_in_orders = ProductInOrder.objects.all()
+        context['products_in_orders'] = products_in_orders
+        context['products'] = Product.objects.all()
+
+        context['avg_total_price'] = sum([i.total_price for i in orders]) / len(orders)
+
+        total_price = []
+        for i in orders:
+            total_price.append(i.total_price)
+        sum(total_price) / len(orders)
+
+        context['avg_product_count'] = sum([i.nmb for i in products_in_orders]) / len(products_in_orders)
+        return context

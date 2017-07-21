@@ -23,6 +23,5 @@ urlpatterns = [
     url(r'^basket_adding2/(?P<product_id>\d+)/$', views.BasketAddExample.as_view(),
         name='basket_adding2'),
     url(r'^checkout/$', views.checkout, name='checkout'),
-
-
+    url(r'^orders/$', views.OrderList.as_view(), name='orders'),
 ]
