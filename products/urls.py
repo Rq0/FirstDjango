@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework.urlpatterns import format_suffix_patterns
+
 from products import views
+
 
 urlpatterns = [
     url(r'^product/(?P<product_id>\w+)/$', views.product, name='product'),
     url(r'^detail/(?P<pk>\d+)/$', views.ProductDetail.as_view(), name='detail'),
     url(r'^phone/$', views.Phone.as_view(), name='phone'),
     url(r'^notebook/$', views.Notebook.as_view(), name='notebook'),
+    url(r'^api/(?P<pk>[0-9]+)/$', views.ProductD.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

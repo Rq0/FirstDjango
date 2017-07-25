@@ -8,8 +8,8 @@
         {% if products_in_basket %}
         <div class="col-lg-8 col-lg-offset-2">
             <h3 class="text-center">Товары в корзине</h3>
-            <h5 class="text-center">Общая стоимость: {{ request.session.basket.total_amount }} грн </h5>
-            {{ request.session.basket.products }}
+            <h5 class="text-center">Общая стоимость: {{ self.session.basket.total_amount }} грн </h5>
+            {{ self.session.basket.products }}
 
             <form class="form-horizontal" method="post">{% csrf_token %}
 
@@ -18,7 +18,7 @@
                         <label>Имя</label>
                         <span class="form-error">{{ form.name.errors }}</span>
                         <input type="text" name="{{ form.name.html_name }}" class="form-control"
-                               value="{{ request.POST.name }}"
+                               value="{{ self.POST.name }}"
                         >
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                         <label>Телефон</label>
                         <span class="form-error">{{ form.phone.errors }}</span>
                         <input type="text" name="{{ form.phone.html_name }}" class="form-control"
-                               value="{{ request.POST.phone }}"
+                               value="{{ self.POST.phone }}"
                         >
                     </div>
                 </div>

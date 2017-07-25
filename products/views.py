@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from rest_framework import generics
 
 from orders.forms import ProductInBasketForm
 from products.models import *
+from products.serializers import ProductSerializer
 
 
 def product(request, product_id):
@@ -34,3 +36,12 @@ class Notebook(ListView):
 
 class ProductDetail(DetailView):
     model = Product
+
+
+class ProductD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def product(self, product_id):
+        product = Product.objects.get(pk=product_id)
+        return render(self, 'products/product_detail.html', {'product': product})
